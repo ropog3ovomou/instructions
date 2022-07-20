@@ -1,17 +1,20 @@
 # Mint setup for beginners
-Follow instructions one by one, skipping optional if you want. Copy-paste the code in your Shell (see [noobs lab](https://www.youtube.com/watch?v=ppP5i7f47ao)).
-## Initial setup
+Follow instructions one by one, skipping the optional if you want. Copy-paste and run the code in your Shell (see [how to do that](https://www.youtube.com/watch?v=_cu7hWs-zrQ)). 
+## Basic setup
 #### Update all softwre to the recent versions
-
+> **Warning**
+> Takes ~ half an hour
 ```sh
 sudo apt update && sudo apt upgrade -y
 ```
-> **Warning**
-> Takes around half an hour
 
-#### Enable mousewheel
+#### Add mousewheel support
+Install
 ```sh
 sudo apt install imwheel
+```
+Enable
+```sh
 cat >~/.imwheelrc<<EOF
 ".*"
 None,      Up,   Button4, 3
@@ -34,15 +37,9 @@ Type=Application
 EOF
 chmod a+x ~/.config/autostart/imwheel.desktop
 imwheel
-```
-## Install Software (optional)
 
-#### lantern VPN
-```sh
-wget https://getlantern.org/lantern-installer-64-bit.deb
-sudo dpkg -i lantern-installer-64-bit.deb
 ```
-
+## Software (optional)
 
 #### Google Chrome
 ```sh
@@ -50,16 +47,24 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 ```
+#### Qbit bittorent client
+```sh
+udo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
+sudo apt update
+apt install qbittorrent -y
 
-
+```
+#### lantern VPN
+```sh
+wget https://getlantern.org/lantern-installer-64-bit.deb
+sudo dpkg -i lantern-installer-64-bit.deb
+```
 #### RDP Client Remmina
 ```sh
 sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
 sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
 
 ```
-
-
 #### Brave browser
 ```sh
 sudo apt install apt-transport-https curl
@@ -70,11 +75,4 @@ sudo apt install brave-browser -y
 
 ```
 
-# Qbit bittorent client
-```sh
-udo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
-sudo apt update
-apt install qbittorrent -y
-
-```
 
