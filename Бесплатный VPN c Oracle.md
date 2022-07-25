@@ -23,7 +23,7 @@
    ````
 
 # Создание машины в облаке
-1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle (создайте при необходимости)
+1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle (зарегистрируйтесь при необходимости)
 2. Нажмите Get Started -> Launch Resources -> [Create a VM instance](https://cloud.oracle.com/compute/instances/create)
     - Name: **"vpn"**
     - Placement
