@@ -172,7 +172,7 @@ speedtest-cli
 <img src=https://user-images.githubusercontent.com/107844943/180794674-f9b5473a-30fd-4fb4-bbfb-e7f19d26b76b.png width=200> <img src=https://user-images.githubusercontent.com/107844943/180785955-0c352592-f82c-4677-b29e-6bff2cfa5029.png height=300 > <img src=https://user-images.githubusercontent.com/107844943/180786161-4f5f354f-5aa9-4a0d-9729-1f78b8bfe2d9.png height=300 >
 
  
-# Sources:
+# Источники
 
 > Adapted from 
 > - [setting up personal wireguard vpn on oracle cloud compute instance](https://pswalia2u.medium.com/setting-up-personal-wireguard-vpn-on-oracle-cloud-compute-instance-1d90d56d4b8b)
