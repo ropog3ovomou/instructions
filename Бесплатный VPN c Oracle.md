@@ -86,9 +86,9 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
     python3 -m virtualenv --python="$(command -v python3)" .env &&
     source .env/bin/activate &&
     python3 -m pip install -U pip virtualenv &&
-    python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt &&
     # Disable IPSec
-    sed -i 's/ipsec_enabled: true/ipsec_enabled: false/' config.cfg
+    sed -i 's/ipsec_enabled: true/ipsec_enabled: false/' config.cfg &&
     # Start the installation
     ansible-playbook main.yml -e "provider=local role=local \
     sever=localhost ondemand_cellular=false ondemand_wifi=false \
