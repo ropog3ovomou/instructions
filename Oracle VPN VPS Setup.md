@@ -7,6 +7,7 @@ Both tunnels will be switchable via the standard visual tools on your desktop.
 
 # Create SSH keys
 > **Note**
+> If you are new to SSH, please see a [quick intro](https://www.youtube.com/watch?v=qWKK_PNHnnA).
 > If you are not familiar with Linux, see [Mint Setup for beginners](https://github.com/ropog3ovomou/instructions/blob/main/Mint%20Setup.md)
 
 1. If you haven't used SSH on your machine before, create your main SSH key pair:
@@ -41,8 +42,6 @@ Both tunnels will be switchable via the standard visual tools on your desktop.
     sudo sed -i '$a<IP> vpn' /etc/hosts
     ````
 2. Connect to the vpn server with SSH:
-    > **Note**
-    > If you are new to SSH, please see a [quick intro](https://www.youtube.com/watch?v=qWKK_PNHnnA).
     ````sh
 	  ssh ubuntu@vpn
     
