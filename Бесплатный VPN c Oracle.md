@@ -44,7 +44,7 @@
     ````sh
     sudo sed -i '$a<IP> vpn' /etc/hosts
     ````
-2. Войдите на сервер через SSH:
+2. Передайте пробную команду на сервер через SSH:
     ````sh
 	  ssh ubuntu@vpn uname -a
     
