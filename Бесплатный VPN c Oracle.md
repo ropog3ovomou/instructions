@@ -46,12 +46,12 @@
     ````
 2. Войдите на сервер через SSH:
     ````sh
-	  ssh ubuntu@vpn
+	  ssh ubuntu@vpn uname -a
     
     ````
 👍 Теперь у вас есть собственный сервер в облаке
     
-# Настройка VPN через SSH
+# Настройка VPN по каналу SSH
 ## На клиенте
 Выполните в терминале следующие команды:
 ````sh
@@ -70,13 +70,13 @@ netmask = 255.255.255.252, remote = vpn, remote-ip = 172.16.40.1' \
 ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
 
 ````
-👍 Теперь у вас есть безопасный VPN на основе SSH. См [Проверка соединения](https://github.com/ropog3ovomou/instructions/new/main#%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F) чтобы им воспользоваться.
-# Setup WireGuard VPN
-## On the server
-1. Go to the server:
+👍 Теперь у вас есть безопасный VPN на основе SSH. Как пользоваться см. [Проверка соединения](https://github.com/ropog3ovomou/instructions/new/main#%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F).
+# Настройка VPN WireGuard
+## На сервере
+1. Войдите на сервер:
     ````sh
     ssh ubuntu@vpn
-1. Setup WireGuard VPN:
+1. Установите WireGuard VPN:
     ````sh
     # Install virtualenv:
     sudo apt install -y --no-install-recommends python3-virtualenv
@@ -93,14 +93,14 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
     ansible-playbook main.yml -e "provider=local role=local \
     sever=localhost ondemand_cellular=false ondemand_wifi=false \
     dns_adblocking=true ssh_tunneling=true store_pki=true endpoint=`curl ifconfig.me`"
-1. Clear IPTables and reboot
+1. Перезагрузите машину
     ````sh
     sudo iptables -F && sudo reboot
     
     ````
-## On Oracle website
-To allow wireguard through the firewall, we have to create new security list in the network and add it to the subnet
-1. [Login](https://cloud.oracle.com/) to your oracle cloud account
+## На сайте Oracle
+Настроим firewall. Для этого нужно создать список правил в сети (network) и подключить его к подсети (subnet).
+1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle
 1. Virtual Cloud Networks -> vcn-***** -> Security Lists -> Create Security List
     - Name: **vpn**
     - +Another ingres rule 
@@ -108,28 +108,28 @@ To allow wireguard through the firewall, we have to create new security list in 
         - IP Protocol: **UDP**
         - Destination Port Range: "**500,4500,51820**"
     - Save list
-2. Go to Virtual Cloud Networks -> vcn-***** -> subnet-***** -> Add Security List -> Security List: **vpn**
-## On the client
+2. Перейдите в Virtual Cloud Networks -> vcn-***** -> subnet-***** -> Add Security List -> Security List: **vpn**
+## На клиенте
 ````sh
-# Install required build tools
+# Установить инструменты сборки
 sudo apt install -y wireguard git dh-autoreconf libglib2.0-dev intltool build-essential \
      libgtk-3-dev libnma-dev libsecret-1-dev network-manager-dev resolvconf &&
-# Download network manager plugin
+# Загрузить плагин сетевого менеджера
 git clone https://github.com/max-moser/network-manager-wireguard &&
 cd network-manager-wireguard &&
-# Build and install
+# Скомпилировать и установить
 ./autogen.sh --without-libnm-glib &&
 ./configure --without-libnm-glib --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib/x86_64-linux-gnu \
     --libexecdir=/usr/lib/NetworkManager --localstatedir=/var &&
 make &&
 sudo make install &&
 (
-# Read vpn config into variables
+# Загрузить данные с сервера в переменные
 source <(ssh ubuntu@vpn 'cat algo/configs/localhost/wireguard/laptop.conf |
          sed -e "/\[/d" -e "/^$/d" -e "s/ //g"') &&
-# Work around a bug that prevents wiregard from working without explicit mask
+# Поправить баг с неработающим соединением при неуказанной маске
 [[ "$Address" == *"/"* ]] || Address=$Address/32 &&
-# Add network manager connection
+# Добавить соединение в сетевой менеджер
 nmcli con add connection.type vpn vpn.service-type org.freedesktop.NetworkManager.wireguard vpn.data \
 "connection-dns = $DNS, local-ip4 = $Address, local-private-key = $PrivateKey, peer-allowed-ips = 0.0.0.0/0, 
 peer-endpoint = $Endpoint, peer-preshared-key = $PresharedKey, peer-public-key = $PublicKey" \
@@ -137,14 +137,14 @@ connection.autoconnect yes connection.id WG
 )
 
 ````
-👍 Contgratulations, now you have a reliable personal VPN in Linux.
+👍 Поздравляем, вы настроили персональный VPN в Linux.
 # Проверка соединения
-### Check connectivity
-1. Check your external IP and location, for example:
+### Подключение
+1. Проверьте внешний IP адрес:
     ````sh
     curl https://ipinfo.io/`curl -s ifconfig.me`
     ````
-2. Click **SSH** or **WG** under network connections tray icon (see the image below)
+2. Нажмите **SSH** or **WG** VPN в меню сетевых соединений в системном лотке
  
 ![image](https://user-images.githubusercontent.com/107844943/180772075-89822abc-8e9c-4e23-b334-4d29483b6f29.png)
     
