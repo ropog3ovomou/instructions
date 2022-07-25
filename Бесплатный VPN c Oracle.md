@@ -79,7 +79,7 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
 1. Установите WireGuard VPN:
     ````sh
     # Установить virtualenv:
-    sudo apt install -y --no-install-recommends python3-virtualenv
+    sudo apt install -y --no-install-recommends python3-virtualenv &&
     # Скачать algo и активизировать виртуальную среду
     git clone https://github.com/trailofbits/algo.git &&
     cd algo &&
