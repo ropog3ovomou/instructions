@@ -93,7 +93,7 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
     ansible-playbook main.yml -e "provider=local role=local \
     sever=localhost ondemand_cellular=false ondemand_wifi=false \
     dns_adblocking=true ssh_tunneling=true store_pki=true endpoint=`curl ifconfig.me`"
-1. Перезагрузите машину
+1. Обнулите iptables и перезагрузите сервер
     ````sh
     sudo iptables -F && sudo reboot
     
