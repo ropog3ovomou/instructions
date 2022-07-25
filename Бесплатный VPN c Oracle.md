@@ -22,7 +22,7 @@
    ssh-keygen -f .ssh/id_rsa_vpn -P ''
    ````
 
-# Создание машины в облаке Oracle
+# Создание машины в облаке
 1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle (создайте при необходимости)
 2. Нажмите Get Started -> Launch Resources -> [Create a VM instance](https://cloud.oracle.com/compute/instances/create)
     - Name: **"vpn"**
