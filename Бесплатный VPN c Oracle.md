@@ -60,7 +60,7 @@ ssh ubuntu@vpn "sudo sed -i 's/^.*PermitTunnel no/PermitTunnel yes/' /etc/ssh/ss
 # Включить перенаправление пакетов в ядре:
 ssh ubuntu@vpn "sudo su -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'" &&
 # Добавить специальный ключ для пользователя root (необходимо для туннелирования)
-cat ~/.ssh/id_rsa_vpn.pub |ssh ubuntu@vpn 'sudo su -c "cat >> /root/.ssh/authorized_keys"'
+cat ~/.ssh/id_rsa_vpn.pub |ssh ubuntu@vpn 'sudo su -c "cat >> /root/.ssh/authorized_keys"' &&
 # Установить плагин туннелирования SSH
 sudo apt-get install network-manager-ssh &&
 # Добавить VPN соединение в сетевой менеджер
@@ -78,18 +78,18 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
     ssh ubuntu@vpn
 1. Установите WireGuard VPN:
     ````sh
-    # Install virtualenv:
+    # Установить virtualenv:
     sudo apt install -y --no-install-recommends python3-virtualenv
-    # Download algo and activate virtual environment
+    # Скачать algo и активизировать виртуальную среду
     git clone https://github.com/trailofbits/algo.git &&
     cd algo &&
     python3 -m virtualenv --python="$(command -v python3)" .env &&
     source .env/bin/activate &&
     python3 -m pip install -U pip virtualenv &&
     python3 -m pip install -r requirements.txt &&
-    # Disable IPSec
+    # Исключить IPSec
     sed -i 's/ipsec_enabled: true/ipsec_enabled: false/' config.cfg &&
-    # Start the installation
+    # Запустить установку
     ansible-playbook main.yml -e "provider=local role=local \
     sever=localhost ondemand_cellular=false ondemand_wifi=false \
     dns_adblocking=true ssh_tunneling=true store_pki=true endpoint=`curl ifconfig.me`"
