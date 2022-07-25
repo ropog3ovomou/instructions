@@ -67,7 +67,7 @@ netmask = 255.255.255.252, remote = vpn, remote-ip = 172.16.40.1' \
 ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
 
 ````
-👍 Now you have a secure SSH-based tunnel. See [Test the connection](https://www.speedtest.net/result/13452478629) on how to test it.
+👍 Now you have a secure SSH-based tunnel. See [Test the connection](https://github.com/ropog3ovomou/instructions/edit/main/Oracle%20VPN%20VPS%20Setup.md#test-the-connection) on how to test it.
 # Setup WireGuard VPN
 ## On the server
 1. Go to the server:
