@@ -134,6 +134,7 @@ connection.autoconnect yes connection.id WG
 )
 
 ````
+👍 Contgratulations, now you have a reliable personal VPN in Linux.
 # Test the connection
 ### Check connectivity
 1. Check your external IP and location, for example:
