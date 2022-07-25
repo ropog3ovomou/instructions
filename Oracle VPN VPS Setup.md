@@ -1,4 +1,4 @@
-# Personal VPN with free Oracle cloud, Linux Mint
+# Personal VPN with free Oracle cloud & Linux Mint
 You will configure two VPN tunnels:
 - **Wireguard** as the main protocol
 - fast **SSH tunnelling** as an alternative, on-demand VPN.
