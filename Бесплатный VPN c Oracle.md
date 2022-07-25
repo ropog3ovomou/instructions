@@ -144,30 +144,30 @@ connection.autoconnect yes connection.id WG
     ````sh
     curl https://ipinfo.io/`curl -s ifconfig.me`
     ````
-2. Нажмите **SSH** or **WG** VPN в меню сетевых соединений в системном лотке
+2. Нажмите **SSH** или **WG** в системном лотке
  
 ![image](https://user-images.githubusercontent.com/107844943/180772075-89822abc-8e9c-4e23-b334-4d29483b6f29.png)
     
-3. Check your new IP and location
+3. Проверьте IP еще раз
     ````sh
     curl https://ipinfo.io/`curl -s ifconfig.me`
     ````
     
 ![image](https://user-images.githubusercontent.com/107844943/180773495-3fb5376c-06cf-4051-ab9f-5c68af5f5fc2.png)
 
-### Test network speed
+### Скорость
 ````sh
 sudo apt install -y speedtest-cli &&
 speedtest-cli
 
 ````
-# Make wireguard VPN mandatory
-When you use VPN as a security measure, you want to avoid situations when you forget to turn it on. Following makes VPN start automatically.
+# Как сделать Wireguard VPN обязательным
+При использовании VPN в целях безопасности важно избегать случаев, когда он отключен. Следующее заставит VPN подключаться автоматически
 > **Note**
-> When VPN fails, connection gets disabled. That is a secure setup.
-1. Open **network connections** either from the tray icon
-2. Open your main connection
-3. General -> **[x]** Automatically connect to VPN -> **WG**
+> При неудачном соединении с VPN сетевое соединение отключается. Это делает работу безопасной
+1. Выбрать **Сетевые соединения** в системном лотке
+2. Отрыть главное соединение
+3. Основное -> **[x]** Автоматически подключаться к VPN -> **WG**
 
 <img src=https://user-images.githubusercontent.com/107844943/180794674-f9b5473a-30fd-4fb4-bbfb-e7f19d26b76b.png width=200> <img src=https://user-images.githubusercontent.com/107844943/180785955-0c352592-f82c-4677-b29e-6bff2cfa5029.png height=300 > <img src=https://user-images.githubusercontent.com/107844943/180786161-4f5f354f-5aa9-4a0d-9729-1f78b8bfe2d9.png height=300 >
 
