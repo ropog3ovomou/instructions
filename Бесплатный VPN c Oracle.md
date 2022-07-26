@@ -53,7 +53,7 @@
     
 # Настройка VPN на основе SSH
 ## На клиенте
-Выполните в терминале следующие команды:
+Выполните в терминале следующий блок команд:
 ````sh
 # Включить SSH туннель на сервере
 ssh ubuntu@vpn "sudo sed -i 's/^.*PermitTunnel no/PermitTunnel yes/' /etc/ssh/sshd_config" &&
