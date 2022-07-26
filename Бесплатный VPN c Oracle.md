@@ -108,7 +108,8 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
         - IP Protocol: **UDP**
         - Destination Port Range: "**500,4500,51820**"
     - Save list
-2. Перейдите в Virtual Cloud Networks -> vcn-***** -> subnet-***** -> Add Security List -> Security List: **vpn**
+2. Опять перейдите в Virtual Cloud Networks
+3. vcn-***** -> subnet-***** -> Add Security List -> Security List: **vpn**
 ## На клиенте
 ````sh
 # Установить инструменты сборки
