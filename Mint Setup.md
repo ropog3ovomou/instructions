@@ -39,6 +39,9 @@ chmod a+x ~/.config/autostart/imwheel.desktop
 imwheel
 
 ```
+#### Remove password from screensaver (optional)
+menu -> preferences> screensaver -> Screensaver settings -> Delay before starting the screensaver: Never
+
 ## Software (optional)
 
 #### Google Chrome
