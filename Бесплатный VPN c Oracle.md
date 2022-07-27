@@ -23,21 +23,21 @@
 
 # Создание машины в облаке
 1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle (зарегистрируйтесь при необходимости)
-2. Нажмите Get Started -> Launch Resources -> [Create a VM instance](https://cloud.oracle.com/compute/instances/create)
+2. Нажмите Get Started ➜ Launch Resources ➜ [Create a VM instance](https://cloud.oracle.com/compute/instances/create)
     - Name: **"vpn"**
     - Placement
         - Availability Domain: **AD-1** (Frankfurt)
     - Image and shape 
         - Image: **Canonical Ubuntu**
         - Shape: **VM.Standard.E2.1.Micro**
-    - Add SSH keys -> **(x)** Paste public keys
+    - Add SSH keys ➜ **(x)** Paste public keys
         - SSH keys: **запустите следующую команду и вставьте результат:**
         ```sh
         cat ~/.ssh/id_rsa.pub
         ```
     - Нажмите Create
 3. Подождите, пока индикатор станет зеленым
-5. Public IP address -> **Copy**
+5. Public IP address ➜ **Copy**
 1. Замените `<IP>` в следующей команде скопированным адресом и выполните ее: 
     > Команда должна выглядеть примерно так - `sudo sed -i '$a111.11.1.111 vpn' /etc/hosts`
     ````sh
@@ -100,7 +100,7 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
 ## На сайте Oracle
 Настроим firewall. Для этого нужно создать список правил в сети (network) и подключить его к подсети (subnet).
 1. [Войдите](https://cloud.oracle.com/) в учетную запись Oracle
-1. Virtual Cloud Networks -> vcn-***** -> Security Lists -> Create Security List
+1. Virtual Cloud Networks ➜ vcn-***** ➜ Security Lists ➜ Create Security List
     - Name: **vpn**
     - +Another ingres rule 
         - Source CIDR: "**0.0.0.0/0**"
@@ -108,7 +108,7 @@ ipv4.dns 1.1.1.1,8.8.8.8 connection.autoconnect no connection.id SSH
         - Destination Port Range: "**500,4500,51820**"
     - Save list
 2. Опять перейдите в Virtual Cloud Networks
-3. vcn-***** -> subnet-***** -> Add Security List -> Security List: **vpn**
+3. vcn-***** ➜ subnet-***** ➜ Add Security List ➜ Security List: **vpn**
 ## На клиенте
 ````sh
 # Установить инструменты сборки
@@ -164,7 +164,7 @@ speedtest-cli
 > При неудачном соединении с VPN сетевое соединение отключается. Это делает работу безопасной
 1. Выбрать **Сетевые соединения** в системном лотке
 2. Отрыть главное соединение
-3. Основное -> **[x]** Автоматически подключаться к VPN -> **WG**
+3. Основное ➜ **[x]** Автоматически подключаться к VPN ➜ **WG**
 
 <img src=https://user-images.githubusercontent.com/107844943/180794674-f9b5473a-30fd-4fb4-bbfb-e7f19d26b76b.png width=200> <img src=https://user-images.githubusercontent.com/107844943/180785955-0c352592-f82c-4677-b29e-6bff2cfa5029.png height=300 > <img src=https://user-images.githubusercontent.com/107844943/180786161-4f5f354f-5aa9-4a0d-9729-1f78b8bfe2d9.png height=300 >
 
