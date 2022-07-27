@@ -12,7 +12,6 @@
 > 2. [командная строка для новичков](https://www.youtube.com/watch?v=qwopGsaNF_Q) 
 > 3. [основы SSH и SCP в одном видео](https://youtu.be/Ns24-dCXDDg)
 
-
 1. Создайте основную пару ключей:
     ````sh
     ssh-keygen
@@ -141,7 +140,7 @@ connection.autoconnect yes connection.id WG
 👍 Поздравляем, настройка VPN завершена.
 # Проверка соединения
 ### Подключение
-1. Проверьте внешний IP адрес:
+1. Проверьте принадлежность внешнего IP адреса:
     ````sh
     curl https://ipinfo.io/`curl -s ifconfig.me`
     ````
@@ -149,10 +148,7 @@ connection.autoconnect yes connection.id WG
  
 ![image](https://user-images.githubusercontent.com/107844943/180772075-89822abc-8e9c-4e23-b334-4d29483b6f29.png)
     
-3. Проверьте IP еще раз
-    ````sh
-    curl https://ipinfo.io/`curl -s ifconfig.me`
-    ````
+3. Проверьте IP еще раз. Он должен измениться на принадлежащий Oracle corporation
     
 ![image](https://user-images.githubusercontent.com/107844943/180773495-3fb5376c-06cf-4051-ab9f-5c68af5f5fc2.png)
 
