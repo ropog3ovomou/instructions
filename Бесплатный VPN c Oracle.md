@@ -123,6 +123,7 @@ cd network-manager-wireguard &&
     --libexecdir=/usr/lib/NetworkManager --localstatedir=/var &&
 make &&
 sudo make install &&
+# Настроить VPN соединение
 (
 # Загрузить данные с сервера в переменные
 source <(ssh ubuntu@vpn 'cat algo/configs/localhost/wireguard/laptop.conf |
