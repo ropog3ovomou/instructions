@@ -69,7 +69,18 @@ sudo apt install qbittorrent -y
 ```sh
 wget https://getlantern.org/lantern-installer-64-bit.deb &&\
 sudo dpkg -i lantern-installer-64-bit.deb &&\
-rm lantern-installer-64-bit.deb
+rm lantern-installer-64-bit.deb &&\
+cat >~/.config/autostart/lantern.desktop<<END
+[Desktop Entry]
+Type=Application
+Name=lantern
+Exec=lantern
+Icon=lantern
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Hidden=false
+X-GNOME-Autostart-Delay=0
+END
 
 ```
 > Запускается из меню -> Прочие
