@@ -67,9 +67,11 @@ sudo apt install qbittorrent -y
 
 #### lantern VPN
 ```sh
+# Установка
 wget https://getlantern.org/lantern-installer-64-bit.deb &&\
 sudo dpkg -i lantern-installer-64-bit.deb &&\
-rm lantern-installer-64-bit.deb &&\
+rm lantern-installer-64-bit.deb &&
+# Запускать автоматически
 cat >~/.config/autostart/lantern.desktop<<END
 [Desktop Entry]
 Type=Application
