@@ -103,7 +103,7 @@ protonvpn-cli connect --fastest &&
 echo = Success =
 
 ```
-> VPN запускается автоматически. Отключение автозагрузки:
+> VPN запускается автоматически. Отключение автозагрузки при необходимости:
 > ```sh
 > chmod a-x .config/autostart/protonvpn-cli.desktop
 > ```
