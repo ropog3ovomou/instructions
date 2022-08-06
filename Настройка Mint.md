@@ -65,7 +65,7 @@ sudo apt install qbittorrent -y
 ```
 > Запускается из меню -> Интернет
 
-#### Proton VPN в режиме полной защиты
+#### Proton VPN в режиме постоянной защиты
 ```sh
 wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb &&
 sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb &&
@@ -84,13 +84,10 @@ END
 (cat >~/.config/autostart/protonvpn-cli.desktop<<END
 [Desktop Entry]
 Type=Application
-Exec=~/.config/protonvpn/autostart.sh
-Icon=protonvpn-logo
 Name=ProtonVPN CLI
+Icon=lock
+Exec=$HOME/.config/protonvpn/autostart.sh
 Terminal=false
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
 END
 ) &&
 chmod a+x ~/.config/autostart/protonvpn-cli.desktop ~/.config/protonvpn/autostart.sh &&
