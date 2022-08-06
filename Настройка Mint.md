@@ -65,55 +65,6 @@ sudo apt install qbittorrent -y
 ```
 > Запускается из меню -> Интернет
 
-#### Proton VPN в режиме постоянной защиты
-##### Установка
-```sh
-# Установка репозитория
-wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb &&
-sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb &&
-rm protonvpn-stable-release_1.0.1-1_all.deb &&
-№ Установка программы
-sudo apt-get update &&
-#sudo apt install -y protonvpn gnome-shell-extension-appindicator gir1.2-appindicator3-0.1
-sudo apt-get install -y protonvpn-cli &&
-# Логин
-clear &&
-echo -e '\033[3B\033[1;37m1. Бесплатная регистрация: \033[36mhttps://protonvpn.com/free-vpn/linux\033[0m\n' &&
-read -p '2. Enter your proton username here> ' uname &&
-protonvpn-cli login "$uname" &&
-№ Установа соединения
-protonvpn-cli killswitch --on &&
-protonvpn-cli connect --fastest
-
-```
-
-##### Настройка автозапуска
-```sh
-srv=`protonvpn-cli status|grep Server:|cut -d: -f2-`
-(cat >~/.config/protonvpn/autostart.sh<<END
-#!/bin/bash
-protonvpn-cli ks --off
-protonvpn-cli ks --on
-protonvpn-cli c $srv
-END
-) &&
-(cat >~/.config/autostart/protonvpn-cli.desktop<<END
-[Desktop Entry]
-Type=Application
-Name=ProtonVPN CLI
-Icon=lock
-Exec=$HOME/.config/protonvpn/autostart.sh
-Terminal=false
-END
-) &&
-chmod a+x ~/.config/autostart/protonvpn-cli.desktop ~/.config/protonvpn/autostart.sh &&
-echo = Success =
-
-```
-> Отключение автозапуска: Меню ➜ Параметры ➜ Автозагрузка ➜ **Proton VPN CLI**.
-> См. также [использование](https://protonvpn.com/support/linux-vpn-tool/#cli) вручную.
-
-
 #### lantern VPN
 ```sh
 # Установка
