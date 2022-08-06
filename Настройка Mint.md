@@ -65,7 +65,7 @@ sudo apt install qbittorrent -y
 ```
 > Запускается из меню -> Интернет
 
-#### Proton VPN
+#### Proton VPN в режиме постоянной защиты
 ```sh
 wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb &&
 sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb &&
