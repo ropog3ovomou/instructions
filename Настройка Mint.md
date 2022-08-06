@@ -95,13 +95,19 @@ END
 ) &&
 chmod a+x ~/.config/autostart/protonvpn-cli.desktop ~/.config/protonvpn/autostart.sh &&
 clear &&
-echo -e '\033[3B\033[1;37m1. If not yet, register at \033[36mhttps://protonvpn.com/free-vpn/linux\033[0m\n' &&
+echo -e '\033[3B\033[1;37m1. Бесплатная регистрация: \033[36mhttps://protonvpn.com/free-vpn/linux\033[0m\n' &&
 read -p '2. Enter your proton username here> ' uname &&
 protonvpn-cli login "$uname" &&
+protonvpn-cli killswitch --on &&
+protonvpn-cli connect --fastest &&
 echo = Success =
 
 ```
-> VPN запускается при загрузке. В случае перебоев сеть блокируется, что исключает утечки. Скорость отличная. См. [использование](https://protonvpn.com/support/linux-vpn-tool/#cli)
+> VPN запускается автоматически. Отключение автозагрузки:
+> ```sh
+> chmod a-x .config/autostart/protonvpn-cli.desktop
+> ```
+> См. также [использование вручную](https://protonvpn.com/support/linux-vpn-tool/#cli)
 
 #### lantern VPN
 ```sh
