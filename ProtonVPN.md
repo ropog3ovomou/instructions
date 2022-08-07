@@ -85,7 +85,7 @@ wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 protonvpn-cli ks --off
 
 ```
-##### Снятие вручную (когда protonvpn-cli отсутствует)
+##### Снятие вручную (если protonvpn-cli отсутствует)
 ```sh
 nmcli device del pvpnksintrf0
 
