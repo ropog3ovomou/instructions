@@ -28,7 +28,7 @@ protonvpn-cli c -f
 
 ```
 
-##### Автоматизация запуска скорости
+##### Автоматизация запуска
 ```sh
 srv=`protonvpn-cli status|grep Server:|cut -d: -f2-` &&
 (cat >~/.config/protonvpn/autostart.sh<<END
@@ -55,6 +55,8 @@ echo -e '\n\x1b[1m=SUCCESS=\n'
 > 
 > Отключение: Пуск ➜ Параметры ➜ Автозагрузка ➜ **Proton VPN CLI**.
 
+## Разные полезности
+
 ### Проверка скорости
 ```sh
 sudo apt install -y speedtest-cli &&
@@ -74,5 +76,17 @@ protonvpn-cli c -f
 ##### Альтернативная проверка
 ```sh
 wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
+
+```
+### Восстановление незащищенного доступа в Интернет (снятие защиты от утечек)
+Защиту от утечек бывает необходимо снять если Proton VPN перестал работать и необходим доступ в Интернет.
+##### Стандартное снятие
+```sh
+protonvpn-cli ks --off
+
+```
+##### Снятие вручную (когда protonvpn-cli отсутствует)
+```sh
+nmcli device del pvpnksintrf0
 
 ```
