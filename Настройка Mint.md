@@ -72,8 +72,6 @@ rm google-chrome-stable_current_amd64.deb
 
 #### Qbit (клиент bittorent)
 ```sh
-sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable &&\
-sudo apt update &&\
 sudo apt install qbittorrent -y
 
 ```
@@ -103,8 +101,6 @@ END
 
 #### RDP Client Remmina
 ```sh
-sudo apt-add-repository ppa:remmina-ppa-team/remmina-next &&\
-sudo apt update &&\
 sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
 
 ```
