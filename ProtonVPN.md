@@ -1,7 +1,7 @@
 # Установка Proton VPN на Linux Mint
-Основные преимущества **Proton VPN** это высокая скорость, а также то, что базовым планом можно пользоваться совершенно бесплатно. Сервис разработан в Швейцарии при поддержке Европейского Союза. 
+Преимущества **Proton VPN** это высокая скорость и бесплатный базовый план. Сервис разработан в Швейцарии при поддержке Европейского Союза. 
 
-Данная установка использует Proton VPN в режиме "всегда включен" и предотвращает утечку любых пакетов
+Данная инструкция предписывает установку Proton VPN в режиме "всегда включен" и предотвращает утечку любых пакетов
 
 ### Установка
 ```sh
@@ -9,7 +9,7 @@
 wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb &&
 sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb &&
 rm protonvpn-stable-release_1.0.1-1_all.deb &&
-# Установка программы
+# Установка пакета
 sudo apt-get update &&
 #sudo apt install -y protonvpn gnome-shell-extension-appindicator gir1.2-appindicator3-0.1 &&
 sudo apt-get install -y protonvpn-cli
@@ -28,7 +28,7 @@ protonvpn-cli c -f
 
 ```
 
-##### Настройка автоматического запуска
+##### Автоматизация запуска скорости
 ```sh
 srv=`protonvpn-cli status|grep Server:|cut -d: -f2-` &&
 (cat >~/.config/protonvpn/autostart.sh<<END
