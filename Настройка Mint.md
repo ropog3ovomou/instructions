@@ -14,12 +14,12 @@
 > Эта операция занимает примерно полчаса
 ```sh
 sudo apt update && sudo apt upgrade -y
+
 ```
 
 #### Обновление основной версии Mint
 ```sh
-sudo apt install -y mintupgrade
-sudo mintupgrade
+sudo apt install -y mintupgrade && sudo mintupgrade
 
 ```
 
