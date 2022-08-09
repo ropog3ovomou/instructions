@@ -23,21 +23,32 @@ sudo apt update && sudo apt upgrade -y
 ```
 
 #### Обновление основной версии Mint
+###### Резервное копирование
 > **Warning**
-> Резервное копирование занимает порядка 10 минут и прогресс может не отображаться. Не прерывайте процесс.
+> Занимает порядка 10 минут и прогресс может не отображаться. Не прерывайте процесс.
 ```sh
-sudo apt install -y mintupgrade && sudo timeshift --create && sudo mintupgrade
+sudo timeshift --create
+
+```
+###### Запуск диалога обновления
+```sh
+sudo apt install -y mintupgrade && sudo mintupgrade && sudo reboot
+
+```
+###### После перезагрузки - удаление резервных копий (необязательно)
+```sh
+sudo timeshift --delete-all
 
 ```
 
 #### Добавление поддержки колесика мыши
 > **Note** 
 > Без этого приложения реагируют на прокручивание случайным образом.
-##### Установка
+###### Установка
 ```sh
 sudo apt install imwheel
 ```
-##### Активация
+###### Активация
 ```sh
 cat >~/.imwheelrc<<EOF
 ".*"
@@ -63,8 +74,15 @@ chmod a+x ~/.config/autostart/imwheel.desktop
 imwheel
 
 ```
+## Безопасность
 #### Снятие пароля с экранной заставки (необязательно)
-меню -> Параметры -> Экранная заставка -> Настройки заставки -> Задержка [уже] начатой заставки: Никогда
+Пуск -> Параметры -> Экранная заставка -> Настройки -> Задержка перед запуском заставки: Никогда
+#### Установка разблокировки связки ключей при автоматическом входе
+```sh
+echo > tmp.sh 'echo -n mint|gnome-keyring-daemon -l' &&
+sudo cp tmp.sh /etc/profile.d/unlock_keyring.sh && rm tmp.sh
+
+```
 
 ## Программы (необязательно)
 
@@ -113,7 +131,7 @@ sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
 ```
 > Запускается из меню -> Интернет
 
-#### Brave browser
+#### Brave browser (содержит Tor)
 ```sh
 sudo apt install apt-transport-https curl -y &&\
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg &&\
@@ -123,4 +141,3 @@ sudo apt install brave-browser -y
 
 ```
 > Запускается из меню -> Интернет
-
