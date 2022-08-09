@@ -1,6 +1,6 @@
 # Настройка текстового интерфейса в Debian / Ubuntu / Mint
 
-## На основе Bash
+## Bash
 ```sh
 sudo apt install -y tmux powerline
 cat > ~/.tmux.conf<<END
@@ -18,7 +18,30 @@ END
 
 ```
 
-## На основе Zsh
+## Zsh
 ```sh
-
+sudo apt install -y tmuxp &&
+mkdir -p ~/.config/tmuxp/
+cat >~/.config/tmuxp/tests-shell-editor.yml <<END
+session_name: "\${APP}"
+shell_command_before: "nvm use ${NODE_VERSION:-default}"
+start_directory: "~/src/\${APP}"
+windows:
+  - panes:
+      - vim
+    window_name: editor
+  - panes:
+      - git status
+    window_name: shell
+  - layout: even-horizontal
+    panes:
+      - yarn test --watch
+    window_name: tests
+END
+cat >>~/.bashrc<<END
+alias ms="tmuxp load -y"
+wo()
+{
+    APP=$1 NODE_VERSION=${2:-default} ms tests-shell-editor
+}
 ```
