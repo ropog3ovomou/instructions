@@ -26,7 +26,7 @@ read -p '2. Enter your proton username here> ' uname &&
 protonvpn-cli login "$uname" &&
 # Установа соединения
 protonvpn-cli ks --on &&
-protonvpn-cli c -f
+protonvpn-cli c -f || protonvpn-cli c -r
 
 ```
 
@@ -62,21 +62,28 @@ sudo apt install -y speedtest-cli &&
 speedtest-cli
 
 ```
+> **Note**
 > Если появляется `...ERROR: HTTP Error 403: Forbidden`, повторите `speedtest-cli` через две минуты
-
-##### Переподключение к более быстрому серверу (при необходимости)
-```sh
-protonvpn-cli d &&
-protonvpn-cli c -f
-
-```
-> Если быстрый сервер найден, заново настройте автоматический запуск. 
 
 ##### Альтернативная проверка скорости
 ```sh
 wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 
 ```
+##### Переподключение к наиболее быстрому серверу
+```sh
+protonvpn-cli d &&
+protonvpn-cli c -f
+
+```
+> Если быстрый сервер найден, заново настройте автоматический запуск. 
+##### Переподключение к случайному серверу
+```sh
+protonvpn-cli d &&
+protonvpn-cli c -r
+
+```
+
 ## Удаление
 ##### Восстановление незащищенного доступа в Интернет
 ```sh
