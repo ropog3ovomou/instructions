@@ -3,8 +3,10 @@
 ## Общее
 ```sh
 sudo apt install -y neovim git tmuxp fzf vifm powerline ripgrep bat stow &&
+git clone https://github.com/hamvocke/dotfiles.git &&
+cd dotfiles &&
 
-# base16 Shell
+# base16 colors
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell &&
 (cat >>~/.bashrc<<END
 # Base16 Shell
@@ -12,15 +14,19 @@ BASE16_SHELL="\$HOME/.config/base16-shell/"
 [ -n "\$PS1" ] && \\
     [ -s "\$BASE16_SHELL/profile_helper.sh" ] && \\
         eval "\$("\$BASE16_SHELL/profile_helper.sh")"
+
 END
 ) &&
-git clone https://github.com/hamvocke/dotfiles.git &&
-cd dotfiles &&
 
 # tmux
 stow tmux &&
 sed -i 's/^set -g default-terminal.*$/\#\0/' ~/.tmux.conf &&
-echo "run-shell 'powerline-config tmux setup'" >> ~/.tmux.conf &&
+(cat >> ~/.tmux.conf<<END
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
+run-shell 'powerline-config tmux setup'
+END
+) &&
+
 # bash
 cat >> ~/.bashrc<<END
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
@@ -98,3 +104,10 @@ END
 
 
 ```
+## Sources
+Adapted from:
+- https://betterprogramming.pub/how-to-use-tmuxp-to-manage-your-tmux-session-614b6d42d6b6
+- https://erikzaadi.com/2020/02/17/how-to-use-zsh-and-tmuxp-to-speed-up-your-day-to-day-workflow/
+- https://github.com/hamvocke/dotfiles
+- https://www.freecodecamp.org/news/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b/
+- 
