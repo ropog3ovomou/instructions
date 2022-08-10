@@ -1,12 +1,27 @@
 # Настройка текстового интерфейса в Debian / Ubuntu / Mint
 
-## Bash
+## Общее
 ```sh
-sudo apt install -y tmux powerline
-cat > ~/.tmux.conf<<END
-run-shell 'powerline-config tmux setup'
-set-window-option -g mode-keys vi
+sudo apt install -y neovim git tmuxp fzf vifm powerline ripgrep bat stow &&
+
+# base16 Shell
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell &&
+(cat >>~/.bashrc<<END
+# Base16 Shell
+BASE16_SHELL="\$HOME/.config/base16-shell/"
+[ -n "\$PS1" ] && \\
+    [ -s "\$BASE16_SHELL/profile_helper.sh" ] && \\
+        eval "\$("\$BASE16_SHELL/profile_helper.sh")"
 END
+) &&
+git clone https://github.com/hamvocke/dotfiles.git &&
+cd dotfiles &&
+
+# tmux
+stow tmux &&
+sed -i 's/^set -g default-terminal.*$/\#\0/' ~/.tmux.conf &&
+echo "run-shell 'powerline-config tmux setup'" >> ~/.tmux.conf &&
+# bash
 cat >> ~/.bashrc<<END
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
 powerline-daemon -q
@@ -16,32 +31,70 @@ source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 END
 
-```
+cat >~/.vimrc<<END
+"keep history of hidden buffers
+se hidden
 
-## Zsh
-```sh
-sudo apt install -y tmuxp &&
+"visual setup
+sy on
+color slate
+set gfn=SourceCodeProForPowerline-ExtraLight:h18
+
+"indentation
+se ts=4 sts=4 sw=4 et
+
+"search
+se hlsearch
+se ignorecase
+set isfname+=32 "filenames have spaces. 
+
+"Alternative language
+set keymap=russian-jcukenwin "add Russian
+set iminsert=0 "start with English
+"Change language on alt-;
+imap <esc>; <c-^>
+map <esc>; a<c-^><esc>
+
+map <space> :up\|b#<c-M>
+"save on and alt-s
+nnoremap <esc>s :up<c-M>
+"capitalize last word
+inoremap <c-F> <esc>bgUeea
+"ls buffers on alt-l
+nnoremap <esc>l :ls<c-M>:b
+"don't skip wrapped lines
+nnoremap j gj
+nnoremap k gk
+END
 mkdir -p ~/.config/tmuxp/
 cat >~/.config/tmuxp/tests-shell-editor.yml <<END
-session_name: "\${APP}"
-shell_command_before: "nvm use ${NODE_VERSION:-default}"
-start_directory: "~/src/\${APP}"
+session_name: "${APP}"
+shell_command_before: "nvm use default"
+start_directory: "~/src/${APP}"
 windows:
-  - panes:
-      - vim
-    window_name: editor
-  - panes:
-      - git status
-    window_name: shell
-  - layout: even-horizontal
-    panes:
-      - yarn test --watch
-    window_name: tests
-END
+- focus: 'true'
+  layout: 2878,156x67,0,0{56x67,0,0[56x33,0,0,1,56x33,0,34,3],99x67,57,0,2}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - vifm 
+  - git status 
+  - focus: 'true'
+    shell_command: nvim "-c '0"
+  window_name: dev
+ END
 cat >>~/.bashrc<<END
 alias ms="tmuxp load -y"
 wo()
 {
-    APP=$1 NODE_VERSION=${2:-default} ms tests-shell-editor
+    APP=\$1 NODE_VERSION=\${2:-default} ms tests-shell-editor
 }
+END
+```
+
+## Zsh
+```sh
+
+
+
 ```
