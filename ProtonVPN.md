@@ -36,9 +36,16 @@ protonvpn-cli ks --on &&
 protonvpn-cli r
 
 ```
+#### Проверка подключения
+```sh
+sudo apt install -y batcat curl
+protonvpn-cli s | batcat -l c -H 5 && curl -s ipinfo.io  | batcat -l json -H 4
 
+```
 
 #### Автоматизация запуска
+1. Выполните скрипт, приведенный выше
+2. Перезагрузите компьютер и убедитесь, что VPN подключается автоматически.
 ```sh
 srv=`protonvpn-cli status|grep Server:|cut -d: -f2-` &&
 (cat >~/.config/protonvpn/autostart.sh<<END
@@ -61,7 +68,6 @@ chmod a+x ~/.config/autostart/protonvpn-cli.desktop ~/.config/protonvpn/autostar
 echo -e '\n\x1b[1m=SUCCESS=\n'
 
 ```
-> Настраивается с текущим или самым быстрым сервером, если подключение отсутствует.
 
 ## Оптимизация
 ##### Проверка скорости
