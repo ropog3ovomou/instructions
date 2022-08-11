@@ -38,7 +38,7 @@ protonvpn-cli r
 ```
 #### Проверка подключения
 ```sh
-sudo apt install -y batcat curl
+sudo apt install -y bat curl
 protonvpn-cli s | batcat -l c -H 5 && curl -s ipinfo.io  | batcat -l json -H 4
 
 ```
