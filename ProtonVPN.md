@@ -27,12 +27,15 @@ sudo apt-get install -y protonvpn-cli
 clear &&
 echo -e '\033[3B\033[1;37m1. Бесплатная регистрация: \033[36mhttps://protonvpn.com/free-vpn/linux\033[0m\n' &&
 read -p '2. Enter your proton username here> ' uname &&
+protonvpn-cli logout || true &&
 protonvpn-cli login "$uname" &&
 # Установа соединения
+protonvpn-cli c -f || protonvpn-cli c -r &&
 protonvpn-cli ks --on &&
-protonvpn-cli c -f || protonvpn-cli c -r
+protonvpn-cli r
 
 ```
+> **Note** Бесплатный логин распространяется на одно устройтсво. Если учетка уже использована на другом устройтсве, подключение длится долго и оканчивается неудачей. Повторите запуск под другой учеткой.
 
 #### Автоматизация запуска
 ```sh
@@ -74,6 +77,7 @@ speedtest-cli
 wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 
 ```
+
 ##### Переподключение к наиболее быстрому серверу
 ```sh
 protonvpn-cli d &&
