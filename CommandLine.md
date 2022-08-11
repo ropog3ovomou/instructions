@@ -23,6 +23,7 @@ sed -i -e 's/^set -g default-terminal.*$/\#\0/' -e 's/select-pane -.$/\0Z/' ~/.t
 (cat >> ~/.tmux.conf<<END
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
 bind -n M-F11 resize-pane -Z
+bind -n S-PgUp copy-mode -u
 run-shell 'powerline-config tmux setup'
 END
 ) &&
