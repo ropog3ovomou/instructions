@@ -14,15 +14,15 @@ BASE16_SHELL="\$HOME/.config/base16-shell/"
 [ -n "\$PS1" ] && \\
     [ -s "\$BASE16_SHELL/profile_helper.sh" ] && \\
         eval "\$("\$BASE16_SHELL/profile_helper.sh")"
-
 END
 ) &&
 
 # tmux
 stow tmux &&
-sed -i 's/^set -g default-terminal.*$/\#\0/' ~/.tmux.conf &&
+sed -i -e 's/^set -g default-terminal.*$/\#\0/' -e 's/select-pane -.$/\0Z/' ~/.tmux.conf &&
 (cat >> ~/.tmux.conf<<END
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
+bind -n M-F11 resize-pane -Z
 run-shell 'powerline-config tmux setup'
 END
 ) &&
@@ -37,6 +37,9 @@ source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 END
 
+```
+## Neovim
+```sh
 cat >~/.vimrc<<END
 "keep history of hidden buffers
 se hidden
