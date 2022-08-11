@@ -114,4 +114,4 @@ Adapted from:
 - https://erikzaadi.com/2020/02/17/how-to-use-zsh-and-tmuxp-to-speed-up-your-day-to-day-workflow/
 - https://github.com/hamvocke/dotfiles
 - https://www.freecodecamp.org/news/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b/
-- 
+- https://man7.org/linux/man-pages/man1/tmux.1.html
