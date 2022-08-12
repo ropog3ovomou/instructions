@@ -39,7 +39,7 @@ protonvpn-cli r
 ```sh
 sudo apt install -y bat speedtest-cli &&
 protonvpn-cli s | batcat -p -l c -H 5 &&
-echo -n Проверяем скорость... &&
+echo Проверяем скорость... &&
 speedtest-cli --simple --bytes --single --secure |batcat -p -l c
 
 ```
