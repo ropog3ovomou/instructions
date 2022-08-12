@@ -30,7 +30,7 @@ read -p '2. Enter your proton username here> ' uname &&
 protonvpn-cli logout || true &&
 protonvpn-cli login "$uname" &&
 # Установа соединения
-protonvpn-cli c -f || protonvpn-cli c -r &&
+protonvpn-cli c -f || protonvpn-cli c --cc NL || protonvpn-cli c -r &&
 protonvpn-cli ks --on &&
 protonvpn-cli r
 
@@ -52,7 +52,6 @@ protonvpn-cli s | batcat -p -l c -H 5
 
 ```
 > **Note** Mожно указать имя сервера напрямую. Например: `protonvpn-cli c NL-FREE#22`
-> **Warning** Не все серверы отвечают быстро
 
 #### Автоматизация запуска
 1. Подключитесь к серверу
