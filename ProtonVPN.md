@@ -37,26 +37,23 @@ protonvpn-cli r
 ```
 #### Проверка скорости подключения
 ```sh
-sudo apt install -y bat speedtest-cli &&
+apt install -y bat &&
 protonvpn-cli s | batcat -p -l c -H 5 &&
-echo Проверяем скорость... &&
-speedtest-cli --simple --bytes --single --secure |batcat -p -l c
+echo 'Тестовое скачивание (Ctrl-C чтобы прервать):'
+wget -nv --show-progress -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 
 ```
 > **Note**
 > Если появляется `...ERROR: HTTP Error 403: Forbidden`, повторите проверку через две минуты
-
-##### Альтернативная проверка скорости
-```sh
-wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
-
-```
 ##### Переподключение к потенциально более быстрому серверу
 ```sh
 protonvpn-cli c --cc NL &&
 protonvpn-cli s | batcat -p -l c -H 5 
 
 ```
+> **Note** Mожно указать имя сервера напрямую. Например: `protonvpn-cli c NL-FREE#22`
+> **Warning** Не все серверы отвечают быстро
+
 #### Автоматизация запуска
 1. Подключитесь к серверу
 2. Выполните скрипт, приведенный ниже
