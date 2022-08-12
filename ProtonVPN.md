@@ -27,7 +27,7 @@ sudo apt-get install -y protonvpn-cli
 clear &&
 echo -e '\033[3B\033[1;37m1. Бесплатная регистрация: \033[36mhttps://protonvpn.com/free-vpn/linux\033[0m\n' &&
 read -p '2. Enter your proton username here> ' uname &&
-protonvpn-cli logout || true &&
+protonvpn-cli logout >/dev/null || true &&
 protonvpn-cli login "$uname" &&
 # Установа соединения
 protonvpn-cli c -f || protonvpn-cli c --cc NL || protonvpn-cli c -r &&
