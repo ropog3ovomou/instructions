@@ -11,9 +11,9 @@
 wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb &&
 sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb &&
 rm protonvpn-stable-release_1.0.1-1_all.deb &&
-# Установка пакета
+# Установка пакетов
 sudo apt-get update &&
-sudo apt-get install -y protonvpn-cli
+sudo apt-get install -y protonvpn-cli bat
 
 ```
 #### Первый запуск
@@ -39,21 +39,28 @@ protonvpn-cli r
 ```
 #### Проверка скорости подключения
 ```sh
-apt install -y bat &&
 protonvpn-cli s | batcat -p -l c -H 5 &&
 echo 'Тестовое скачивание (Ctrl-C чтобы прервать):'
 wget -nv --show-progress -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 
 ```
-> **Note**
-> Если появляется `...ERROR: HTTP Error 403: Forbidden`, повторите проверку через две минуты
 ##### Переподключение к потенциально более быстрому серверу
 ```sh
-protonvpn-cli c --cc NL &&
-protonvpn-cli s | batcat -p -l c -H 5 
+sudo apt-get install -y vramsteg
+js="$HOME/.cache/protonvpn/cached_serverlist.json"
+ss="$(jq -r '.LogicalServers[]|.Name' $js|grep NL-FREE)"
+protonvpn-cli ks --off
+echo Comparing server speed...
+t=$(vramsteg --now)
+best=$(for s in $ss; do
+  vramsteg -t -s $t -m 0 -c $((n++)) -x $(echo $ss|wc -w) >&2 &&
+  sp=$(protonvpn-cli c $s >/dev/null 2>&1 && curl -so /dev/null -w '%{speed_download}' https://bit.ly/3SJ7EP3)
+  echo $s ${sp:-0}
+done|sort -rnk2 | head -n1 | cut -d' ' -f1)
+protonvpn-cli c $best
+protonvpn-cli ks --on
 
 ```
-> **Note** Mожно указать имя сервера напрямую. Например: `protonvpn-cli c NL-FREE#22`
 
 #### Автоматизация запуска
 1. Подключитесь к серверу
@@ -66,7 +73,7 @@ srv=`protonvpn-cli status|grep Server:|cut -d: -f2-` &&
 #!/bin/bash
 protonvpn-cli ks --off
 protonvpn-cli ks --permanent
-protonvpn-cli c ${srv:=-f}
+protonvpn-cli c ${srv:=-f} || protonvpn-cli c ${srv:=-f} || protonvpn-cli c --cc NL || protonvpn-cli c -r
 END
 ) &&
 (cat >~/.config/autostart/protonvpn-cli.desktop<<END
