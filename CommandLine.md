@@ -2,13 +2,18 @@
 
 ## Общее
 ```sh
-sudo apt install -y neovim git tmuxp fzf vifm powerline ripgrep bat stow &&
+sudo apt install -y neovim git tmuxp fzf vifm powerline ripgrep bat stow chafa \
+fortune cowsay lolcat sl cmatrix &&
 git clone https://github.com/hamvocke/dotfiles.git &&
 cd dotfiles &&
 
-# base16 colors
+# colors
+ln -s `which batcat` ~/.local/bin/bat
+
+
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell &&
-(cat >>~/.bashrc<<END
+(cat >>~/.shrc<<END
+export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 # Base16 Shell
 BASE16_SHELL="\$HOME/.config/base16-shell/"
 [ -n "\$PS1" ] && \\
@@ -19,12 +24,19 @@ END
 
 # tmux
 stow tmux &&
-sed -i -e 's/^set -g default-terminal.*$/\#\0/' -e 's/select-pane -.$/\0Z/' ~/.tmux.conf &&
+sed -i -e 's/\<C-a\>/M-a/' -e 's/^set -g default-terminal.*$/\#\0/' -e 's/select-pane -.$/\0Z/' ~/.tmux.conf &&
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm &&
 (cat >> ~/.tmux.conf<<END
+# Plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
 bind -n M-F11 resize-pane -Z
 bind -n S-PgUp copy-mode -u
 run-shell 'powerline-config tmux setup'
+run '~/.tmux/plugins/tpm/tpm'
+
 END
 ) &&
 
@@ -104,9 +116,33 @@ END
 
 ## Zsh
 ```sh
-
-
-
+sudo apt install zsh powerline
+chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+mkdir -p ~/.fonts
+cd ~/.fonts/
+for x in Regular Bold Italic Bold%20Italic; do wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20$x.ttf\;done
+cd -
+fc-cache -f -v
+gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 11"
+gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type=boolean false
+sed -i 's/POWERLEVEL9K_DIR_BACKGROUND=.*$/POWERLEVEL9K_DIR_BACKGROUND=31/' ~/.p10k.zsh
+cd ~/.oh-my-zsh/custom/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions.git
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+git clone https://github.com/unixorn/fzf-zsh-plugin.git
+cd -
+sed -i '/^plugins/s/)/ zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)/' ~/.zshrc
+(cat >>~/.zshrc<<END
+alias bat=batcat
+# Base16 Shell
+BASE16_SHELL="\$HOME/.config/base16-shell/"
+[ -n "\$PS1" ] && \\
+    [ -s "\$BASE16_SHELL/profile_helper.sh" ] && \\
+        eval "\$("\$BASE16_SHELL/profile_helper.sh")"
+END
+) &&
 ```
 ## Sources
 Adapted from:
@@ -115,3 +151,4 @@ Adapted from:
 - https://github.com/hamvocke/dotfiles
 - https://www.freecodecamp.org/news/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b/
 - https://man7.org/linux/man-pages/man1/tmux.1.html
+- https://github.com/sharkdp/bat/issues/523
