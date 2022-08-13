@@ -2,18 +2,18 @@
 
 ## Общее
 ```sh
-sudo apt install -y neovim git tmuxp fzf vifm powerline ripgrep bat stow chafa \
+sudo apt install -y neovim git tmuxp fzf fasd vifm powerline ripgrep bat stow chafa \
 fortune cowsay lolcat sl cmatrix &&
 git clone https://github.com/hamvocke/dotfiles.git &&
 cd dotfiles &&
 
 # colors
 ln -s `which batcat` ~/.local/bin/bat
-
-
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell &&
+
 (cat >>~/.shrc<<END
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
+export EDITOR=vi
 # Base16 Shell
 BASE16_SHELL="\$HOME/.config/base16-shell/"
 [ -n "\$PS1" ] && \\
@@ -34,6 +34,17 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
 bind -n M-F11 resize-pane -Z
 bind -n S-PgUp copy-mode -u
+# Plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+# Automatically restore active sessions on reboot
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
 run-shell 'powerline-config tmux setup'
 run '~/.tmux/plugins/tpm/tpm'
 
@@ -42,11 +53,8 @@ END
 
 # bash
 cat >> ~/.bashrc<<END
-if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-source /usr/share/powerline/bindings/bash/powerline.sh
+if [ -f $HOME/.rc ]; then
+  source $HOME/.rc;
 fi
 END
 
@@ -135,12 +143,7 @@ git clone https://github.com/unixorn/fzf-zsh-plugin.git
 cd -
 sed -i '/^plugins/s/)/ zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)/' ~/.zshrc
 (cat >>~/.zshrc<<END
-alias bat=batcat
-# Base16 Shell
-BASE16_SHELL="\$HOME/.config/base16-shell/"
-[ -n "\$PS1" ] && \\
-    [ -s "\$BASE16_SHELL/profile_helper.sh" ] && \\
-        eval "\$("\$BASE16_SHELL/profile_helper.sh")"
+source ~/.rc
 END
 ) &&
 ```
