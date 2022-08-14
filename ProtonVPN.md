@@ -37,7 +37,7 @@ protonvpn-cli ks --on &&
 protonvpn-cli r
 
 ```
-#### Проверка скорости подключения
+#### Проверка скорости
 ```sh
 protonvpn-cli s | batcat -p -l c -H 5 &&
 echo 'Тестовое скачивание (Ctrl-C чтобы прервать):'
@@ -45,6 +45,7 @@ wget -nv --show-progress -O /dev/null http://speedtest.wdc01.softlayer.com/downl
 
 ```
 #### Переподключение к потенциально более быстрому серверу
+> **Note** Требуется примерно 15 минут
 ```sh
 sudo apt-get install -y vramsteg
 js="$HOME/.cache/protonvpn/cached_serverlist.json"
