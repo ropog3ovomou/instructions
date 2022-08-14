@@ -12,17 +12,19 @@ git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shel
 cd ~/.config/base16-shell &&
 git reset --hard ae84047d378700bfdbabf0886c1fb5bb1033620f
 mkdir -p scripts/best/dark scripts/best/light &&
-for s in github gruvebox-light-soft; do ln -s scripts/base16-$s.sh scripts/best/light/;done &&
-for s in material-palenight material-darker default-dark chalk brewer bright harmonic-dark greenscreen heetch \
-irblack outrun-dark papercolor-dark phd pop rebecca summerfruit-dark; do ln -s scripts/base16-$s.sh scripts/best/dark/;done
+(cd scripts/best/light && for s in github gruvbox-light-soft; do ln -s ../../base16-$s.sh .;done) &&
+(cd scripts/best/dark && for s in material-palenight material-darker default-dark chalk brewer bright \
+harmonic-dark greenscreen heetch irblack outrun-dark papercolor-dark phd pop rebecca summerfruit-dark
+do ln -s ../../base16-$s.sh .;done)
 ) &&
-sed -i '/# Best themes/,$d' ~/.config/base16-shell/profile_helper
+tmp=`mktemp`
 (
 echo '# Best themes'
 for c in light dark; do
   tail -n7 ~/.config/base16-shell/profile_helper.sh|sed -e "s/scripts/scripts\/best\/$c/" -e "s/base16_/16$c-/"
 done
-) >> ~/.config/base16-shell/profile_helper
+) > $tmp
+cat $tmp >> ~/.config/base16-shell/profile_helper.sh
 (cat >>~/.rc<<END
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 export EDITOR=vi
