@@ -4,14 +4,26 @@
 ```sh
 sudo apt install -y neovim git tmuxp fzf fasd vifm powerline ripgrep bat stow chafa \
 fortune cowsay lolcat sl cmatrix &&
-git clone https://github.com/hamvocke/dotfiles.git &&
-cd dotfiles &&
 
 # colors
 ln -s `which batcat` ~/.local/bin/bat
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell &&
-
-(cat >>~/.shrc<<END
+(
+cd ~/.config/base16-shell &&
+git reset --hard ae84047d378700bfdbabf0886c1fb5bb1033620f
+mkdir -p scripts/best/dark scripts/best/light &&
+for s in github gruvebox-light-soft; do ln -s scripts/base16-$s.sh scripts/best/light/;done &&
+for s in material-palenight material-darker default-dark chalk brewer bright harmonic-dark greenscreen heetch \
+irblack outrun-dark papercolor-dark phd pop rebecca summerfruit-dark; do ln -s scripts/base16-$s.sh scripts/best/dark/;done
+) &&
+sed -i '/# Best themes/,$d' ~/.config/base16-shell/profile_helper
+(
+echo '# Best themes'
+for c in light dark; do
+  tail -n7 ~/.config/base16-shell/profile_helper.sh|sed -e "s/scripts/scripts\/best\/$c/" -e "s/base16_/16$c-/"
+done
+) >> ~/.config/base16-shell/profile_helper
+(cat >>~/.rc<<END
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 export EDITOR=vi
 # Base16 Shell
@@ -21,16 +33,24 @@ BASE16_SHELL="\$HOME/.config/base16-shell/"
         eval "\$("\$BASE16_SHELL/profile_helper.sh")"
 END
 ) &&
+# bash
+cat >> ~/.bashrc<<END
+if [ -f $HOME/.rc ]; then
+  source $HOME/.rc;
+fi
+END
 
-# tmux
+```
+
+## Tmux
+```sh
+git clone https://github.com/hamvocke/dotfiles.git &&
+cd dotfiles &&
 stow tmux &&
 sed -i -e 's/\<C-a\>/M-a/' -e 's/^set -g default-terminal.*$/\#\0/' -e 's/select-pane -.$/\0Z/' ~/.tmux.conf &&
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm &&
 (cat >> ~/.tmux.conf<<END
-# Plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-
+# Shortcuts
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
 bind -n M-F11 resize-pane -Z
 bind -n S-PgUp copy-mode -u
@@ -47,16 +67,8 @@ set -g @continuum-restore 'on'
 set -g @continuum-boot 'on'
 run-shell 'powerline-config tmux setup'
 run '~/.tmux/plugins/tpm/tpm'
-
 END
 ) &&
-
-# bash
-cat >> ~/.bashrc<<END
-if [ -f $HOME/.rc ]; then
-  source $HOME/.rc;
-fi
-END
 
 ```
 ## Neovim
