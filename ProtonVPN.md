@@ -16,7 +16,7 @@ sudo apt-get update &&
 sudo apt-get install -y protonvpn-cli bat
 
 ```
-#### Первый запуск (установка соединения вручную)
+#### Первый запуск (установка соединения)
 При необходимости [зарегистрируйтесь](https://protonvpn.com/free-vpn/linux). 
 > **Warning**
 > Учетная запись VPN будет храниться на компьютере постоянно. Не используйте учетные записи, о которых другие не должны знать или связывать с вами. Создайте отдельную учетку.
@@ -44,7 +44,7 @@ echo 'Тестовое скачивание (Ctrl-C чтобы прервать)
 wget -nv --show-progress -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip
 
 ```
-##### Переподключение к потенциально более быстрому серверу
+#### Переподключение к потенциально более быстрому серверу
 ```sh
 sudo apt-get install -y vramsteg
 js="$HOME/.cache/protonvpn/cached_serverlist.json"
