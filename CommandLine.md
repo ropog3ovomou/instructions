@@ -11,16 +11,17 @@ git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shel
 (
 cd ~/.config/base16-shell &&
 git reset --hard ae84047d378700bfdbabf0886c1fb5bb1033620f
-mkdir -p scripts/best/dark scripts/best/light &&
+mkdir -p scripts/best/dark scripts/best/light scripts/best/crazy &&
+(cd scripts/best/crazy && for s in greenscreen heetch summerfruit-dark; do ln -s ../../base16-$s.sh .;done) &&
 (cd scripts/best/light && for s in github gruvbox-light-soft; do ln -s ../../base16-$s.sh .;done) &&
-(cd scripts/best/dark && for s in material-palenight material-darker default-dark chalk brewer bright \
-harmonic-dark greenscreen heetch irblack outrun-dark papercolor-dark phd pop rebecca summerfruit-dark
+(cd scripts/best/dark && for s in material-palenight default-dark brewer bright \
+ irblack outrun-dark papercolor-dark phd pop
 do ln -s ../../base16-$s.sh .;done)
 ) &&
 tmp=`mktemp`
 (
 echo '# Best themes'
-for c in light dark; do
+for c in crazy light dark; do
   tail -n7 ~/.config/base16-shell/profile_helper.sh|sed -e "s/scripts/scripts\/best\/$c/" -e "s/base16_/16$c-/"
 done
 ) > $tmp
