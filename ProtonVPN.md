@@ -50,16 +50,18 @@ wget -nv --show-progress -O /dev/null http://speedtest.wdc01.softlayer.com/downl
 sudo apt-get install -y jq vramsteg &&
 js="$HOME/.cache/protonvpn/cached_serverlist.json" &&
 ss="$(jq -r '.LogicalServers[]|.Name' $js|grep NL-FREE)" &&
-protonvpn-cli ks --off &&
-echo Comparing server speedsp... &&
+echo Testing servers... &&
 t=$(vramsteg --now) &&
+protonvpn-cli ks --off &&
+protonvpn-cli d
 best=$(for s in $ss; do
   vramsteg -t -s $t -m 0 -c $((n++)) -x $(echo $ss|wc -w) >&2 &&
   sp=$(protonvpn-cli c $s >/dev/null 2>&1 && curl -so /dev/null -w '%{speed_download}' https://bit.ly/3SJ7EP3)
   echo $s ${sp:-0}
 done|sort -rnk2 | head -n1 | cut -d' ' -f1) &&
 until protonvpn-cli c $best; do echo Reconnecting...; done &&
-protonvpn-cli ks --on
+protonvpn-cli ks --on &&
+protonvpn-cli r
 
 ```
 
